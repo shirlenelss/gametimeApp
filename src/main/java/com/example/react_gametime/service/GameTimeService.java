@@ -3,7 +3,6 @@ package com.example.react_gametime.service;
 import com.example.react_gametime.model.GameTimeBalance;
 import com.example.react_gametime.model.GameTimeRequest;
 import com.example.react_gametime.model.RequestStatus;
-import com.example.react_gametime.model.User;
 import com.example.react_gametime.repository.GameTimeBalanceRepository;
 import com.example.react_gametime.repository.GameTimeRequestRepository;
 import com.example.react_gametime.repository.UserRepository;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import com.example.react_gametime.model.User;
 
 @Service
 public class GameTimeService {
@@ -23,10 +23,10 @@ public class GameTimeService {
     private GameTimeBalanceRepository balanceRepo;
 
     @Autowired
-    private UserRepository userRepo;
+    private UserRepository userRepositoryRepo;
 
     public GameTimeRequest createRequest(Long userId, int minutes) {
-        User user = userRepo.findById(userId).orElseThrow();
+        User user = userRepositoryRepo.findById(userId).orElseThrow();
         GameTimeRequest req = new GameTimeRequest();
         req.setUser(user);
         req.setRequestedMinutes(minutes);

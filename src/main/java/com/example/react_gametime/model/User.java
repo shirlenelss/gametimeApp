@@ -1,13 +1,6 @@
 package com.example.react_gametime.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
+import jakarta.persistence.*;
 import lombok.Data;
 
 // User.java
@@ -28,6 +21,8 @@ public class User {
 
     private String email;
 
+    @Version
+    private long version;
     // getters & setters
 }
 
