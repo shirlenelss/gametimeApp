@@ -1,7 +1,7 @@
 package com.example.react_gametime.interfaces.rest;
 
-import com.example.react_gametime.domain.model.User;
-import com.example.react_gametime.service.UserService;
+import com.example.react_gametime.infrastructure.persistence.User;
+import com.example.react_gametime.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

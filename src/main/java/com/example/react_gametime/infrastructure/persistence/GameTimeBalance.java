@@ -1,4 +1,4 @@
-package com.example.react_gametime.domain.model;
+package com.example.react_gametime.infrastructure.persistence;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

@@ -1,8 +1,8 @@
 package com.example.react_gametime.interfaces.rest;
 
-import com.example.react_gametime.domain.model.GameTimeBalance;
-import com.example.react_gametime.domain.model.GameTimeRequest;
-import com.example.react_gametime.service.GameTimeService;
+import com.example.react_gametime.infrastructure.persistence.GameTimeBalance;
+import com.example.react_gametime.infrastructure.persistence.GameTimeRequest;
+import com.example.react_gametime.application.service.GameTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
