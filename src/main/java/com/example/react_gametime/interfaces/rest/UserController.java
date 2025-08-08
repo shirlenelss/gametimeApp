@@ -1,6 +1,6 @@
 package com.example.react_gametime.interfaces.rest;
 
-import com.example.react_gametime.infrastructure.persistence.User;
+import com.example.react_gametime.infrastructure.persistence.UserEntity;
 import com.example.react_gametime.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +16,14 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users-by-name/{userName}")
-    public ResponseEntity<User> addUser(@PathVariable String userName) {
-        Optional<User> user = userService.findByUsername(userName);
+    public ResponseEntity<UserEntity> addUser(@PathVariable String userName) {
+        Optional<UserEntity> user = userService.findByUsername(userName);
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        User created = userService.addUser(user);
+    public ResponseEntity<UserEntity> addUser(@RequestBody UserEntity user) {
+        UserEntity created = userService.addUser(user);
         return ResponseEntity.ok(created);
     }
 

@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface GameTimeRequestRepository extends JpaRepository<GameTimeRequest, Long> {
-    List<GameTimeRequest> findByStatus(RequestStatus status);
+public interface TimeRequestRepository extends JpaRepository<TimeRequest, Long> {
+    List<TimeRequest> findByStatus(RequestStatus status);
 }

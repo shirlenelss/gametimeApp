@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "game_time_balances")
 @Data
-public class GameTimeBalance {
+public class TimeBalance {
     @Id
     private Long userId;
 
