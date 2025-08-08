@@ -1,7 +1,7 @@
-package com.example.react_gametime.controller;
+package com.example.react_gametime.interfaces.rest;
 
-import com.example.react_gametime.model.GameTimeBalance;
-import com.example.react_gametime.model.GameTimeRequest;
+import com.example.react_gametime.domain.model.GameTimeBalance;
+import com.example.react_gametime.domain.model.GameTimeRequest;
 import com.example.react_gametime.service.GameTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

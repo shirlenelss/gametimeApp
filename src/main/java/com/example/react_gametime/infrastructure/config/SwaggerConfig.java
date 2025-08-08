@@ -1,4 +1,4 @@
-package com.example.react_gametime.config;
+package com.example.react_gametime.infrastructure.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

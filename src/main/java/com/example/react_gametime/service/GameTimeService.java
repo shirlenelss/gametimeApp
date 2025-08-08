@@ -1,17 +1,17 @@
 package com.example.react_gametime.service;
 
-import com.example.react_gametime.model.GameTimeBalance;
-import com.example.react_gametime.model.GameTimeRequest;
-import com.example.react_gametime.model.RequestStatus;
-import com.example.react_gametime.repository.GameTimeBalanceRepository;
-import com.example.react_gametime.repository.GameTimeRequestRepository;
-import com.example.react_gametime.repository.UserRepository;
+import com.example.react_gametime.domain.model.GameTimeBalance;
+import com.example.react_gametime.domain.model.GameTimeRequest;
+import com.example.react_gametime.domain.model.RequestStatus;
+import com.example.react_gametime.infrastructure.persistence.GameTimeBalanceRepository;
+import com.example.react_gametime.infrastructure.persistence.GameTimeRequestRepository;
+import com.example.react_gametime.infrastructure.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import com.example.react_gametime.model.User;
+import com.example.react_gametime.domain.model.User;
 
 @Service
 public class GameTimeService {

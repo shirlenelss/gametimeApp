@@ -1,11 +1,11 @@
 package com.example.react_gametime.service;
 
-import com.example.react_gametime.repository.UserRepository;
+import com.example.react_gametime.infrastructure.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import com.example.react_gametime.model.User;
+import com.example.react_gametime.domain.model.User;
 @Service
 public class UserService {
 

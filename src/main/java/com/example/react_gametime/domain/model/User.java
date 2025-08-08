@@ -1,4 +1,4 @@
-package com.example.react_gametime.model;
+package com.example.react_gametime.domain.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

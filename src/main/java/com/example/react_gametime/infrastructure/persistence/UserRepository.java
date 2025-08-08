@@ -1,7 +1,7 @@
-package com.example.react_gametime.repository;
+package com.example.react_gametime.infrastructure.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.react_gametime.model.User;
+import com.example.react_gametime.domain.model.User;
 
 import java.util.Optional;
 
