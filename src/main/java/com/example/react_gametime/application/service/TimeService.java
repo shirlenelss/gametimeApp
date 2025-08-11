@@ -2,7 +2,7 @@ package com.example.react_gametime.application.service;
 
 import com.example.react_gametime.infrastructure.persistence.TimeBalance;
 import com.example.react_gametime.infrastructure.persistence.TimeRequest;
-import com.example.react_gametime.domain.model.RequestStatus;
+import com.example.react_gametime.model.RequestStatus;
 import com.example.react_gametime.infrastructure.persistence.TimeBalanceRepository;
 import com.example.react_gametime.infrastructure.persistence.TimeRequestRepository;
 import com.example.react_gametime.infrastructure.persistence.UserRepository;

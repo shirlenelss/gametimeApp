@@ -1,6 +1,6 @@
 package com.example.react_gametime.application.dto;
 
-import com.example.react_gametime.domain.model.RequestStatus;
+import com.example.react_gametime.model.RequestStatus;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;

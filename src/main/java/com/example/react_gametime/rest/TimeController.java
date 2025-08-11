@@ -1,4 +1,4 @@
-package com.example.react_gametime.interfaces.rest;
+package com.example.react_gametime.rest;
 
 import com.example.react_gametime.infrastructure.persistence.TimeBalance;
 import com.example.react_gametime.infrastructure.persistence.TimeRequest;

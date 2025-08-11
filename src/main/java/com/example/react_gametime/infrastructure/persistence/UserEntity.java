@@ -1,6 +1,6 @@
 package com.example.react_gametime.infrastructure.persistence;
 
-import com.example.react_gametime.domain.model.Role;
+import com.example.react_gametime.model.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 

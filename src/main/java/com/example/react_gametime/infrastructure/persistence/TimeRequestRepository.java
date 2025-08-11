@@ -1,6 +1,6 @@
 package com.example.react_gametime.infrastructure.persistence;
 
-import com.example.react_gametime.domain.model.RequestStatus;
+import com.example.react_gametime.model.RequestStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
