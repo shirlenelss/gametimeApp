@@ -4,9 +4,13 @@ import com.example.react_gametime.model.RequestStatus;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@AllArgsConstructor
+@Data
 public class TimeRequest {
     private Long id;
     @NotNull

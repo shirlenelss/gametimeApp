@@ -1,5 +1,6 @@
 package com.example.react_gametime.application.service;
 
+import com.example.react_gametime.application.mapper.TimeRequestMapper;
 import com.example.react_gametime.infrastructure.persistence.TimeBalance;
 import com.example.react_gametime.infrastructure.persistence.TimeRequest;
 import com.example.react_gametime.model.RequestStatus;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import com.example.react_gametime.infrastructure.persistence.UserEntity;
 
+
 @Service
 public class TimeService {
 
@@ -25,7 +27,11 @@ public class TimeService {
     @Autowired
     private UserRepository userRepositoryRepo;
 
-    public TimeRequest createRequest(Long userId, int minutes) {
+    public com.example.react_gametime.application.dto.TimeRequest createRequest(Long userId, int minutes) {
+        return TimeRequestMapper.toDto(createRequestToDb(userId, minutes));
+    }
+
+    private TimeRequest createRequestToDb(Long userId, int minutes) {
         UserEntity user = userRepositoryRepo.findById(userId).orElseThrow();
         TimeRequest req = new TimeRequest();
         req.setUser(user);
@@ -35,16 +41,27 @@ public class TimeService {
         return requestRepo.save(req);
     }
 
-    public List<TimeRequest> getPendingRequests() {
+    public List<com.example.react_gametime.application.dto.TimeRequest> getPendingRequestList() {
+        return getPendingRequests().stream().map(TimeRequestMapper::toDto).toList();
+    }
+
+    private List<TimeRequest> getPendingRequests() {
         return requestRepo.findByStatus(RequestStatus.PENDING);
     }
 
-    public TimeRequest approveRequest(Long requestId) {
-        TimeRequest req = requestRepo.findById(requestId).orElseThrow();
-        req.setStatus(RequestStatus.APPROVED);
-        req.setApprovedAt(LocalDateTime.now());
-        requestRepo.save(req);
+    public com.example.react_gametime.application.dto.TimeRequest approveRequest(Long requestId) {
+        TimeRequest req = approveRequestToDb(requestId);
+        return TimeRequestMapper.toDto(req);
+    }
 
+    public TimeRequest approveRequestToDb(Long requestId) {
+        TimeRequest req = approveRequestStatusToDb(requestId);
+        saveTimeBalance(req);
+
+        return req;
+    }
+
+    private void saveTimeBalance(TimeRequest req) {
         TimeBalance balance = balanceRepo.findById(req.getUser().getId())
                 .orElse(new TimeBalance());
         balance.setUserId(req.getUser().getId());
@@ -53,11 +70,21 @@ public class TimeService {
                         + req.getRequestedMinutes());
         balance.setLastUpdated(LocalDateTime.now());
         balanceRepo.save(balance);
+    }
 
+    private TimeRequest approveRequestStatusToDb(Long requestId) {
+        TimeRequest req = requestRepo.findById(requestId).orElseThrow();
+        req.setStatus(RequestStatus.APPROVED);
+        req.setApprovedAt(LocalDateTime.now());
+        requestRepo.save(req);
         return req;
     }
 
-    public TimeRequest rejectRequest(Long requestId) {
+    public com.example.react_gametime.application.dto.TimeRequest rejectRequest(Long requestId) {
+        return TimeRequestMapper.toDto(rejectRequestToDb(requestId));
+    }
+
+    private TimeRequest rejectRequestToDb(Long requestId) {
         TimeRequest req = requestRepo.findById(requestId).orElseThrow();
         req.setStatus(RequestStatus.REJECTED);
         req.setApprovedAt(LocalDateTime.now());

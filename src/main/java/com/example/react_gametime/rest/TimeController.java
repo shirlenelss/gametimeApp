@@ -1,7 +1,7 @@
 package com.example.react_gametime.rest;
 
 import com.example.react_gametime.infrastructure.persistence.TimeBalance;
-import com.example.react_gametime.infrastructure.persistence.TimeRequest;
+import com.example.react_gametime.application.dto.TimeRequest;
 import com.example.react_gametime.application.service.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class TimeController {
     // Mum fetches pending requests
     @GetMapping("/requests/pending")
     public ResponseEntity<List<TimeRequest>> getPendingRequests() {
-        return ResponseEntity.ok(timeService.getPendingRequests());
+        return ResponseEntity.ok(timeService.getPendingRequestList());
     }
 
     // Mum approves a request
