@@ -1,7 +1,9 @@
 package com.example.react_gametime.rest;
 
-import com.example.react_gametime.infrastructure.persistence.UserEntity;
+import com.example.react_gametime.application.dto.User;
+import com.example.react_gametime.application.mapper.UserMapper;
 import com.example.react_gametime.application.service.UserService;
+import com.example.react_gametime.infrastructure.persistence.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,15 +18,18 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users-by-name/{userName}")
-    public ResponseEntity<UserEntity> addUser(@PathVariable String userName) {
-        Optional<UserEntity> user = userService.findByUsername(userName);
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<User> addUser(@PathVariable String userName) {
+        Optional<UserEntity> byUsername = userService.findByUsername(userName);
+        return byUsername
+                .map(UserMapper::toDto)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/users")
-    public ResponseEntity<UserEntity> addUser(@RequestBody UserEntity user) {
+    public ResponseEntity<User> addUser(@RequestBody UserEntity user) {
         UserEntity created = userService.addUser(user);
-        return ResponseEntity.ok(created);
+        return ResponseEntity.ok(UserMapper.toDto(created));
     }
 
     @DeleteMapping("/users/{id}")

@@ -27,7 +27,7 @@ public class TimeService {
     @Autowired
     private UserRepository userRepositoryRepo;
 
-    public com.example.react_gametime.application.dto.TimeRequest createRequest(Long userId, int minutes) {
+    public com.example.react_gametime.application.dto.TimeRequest createRequest(long userId, int minutes) {
         return TimeRequestMapper.toDto(createRequestToDb(userId, minutes));
     }
 

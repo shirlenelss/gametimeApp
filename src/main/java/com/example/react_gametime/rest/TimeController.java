@@ -18,7 +18,7 @@ public class TimeController {
 
     // Son creates a new request
     @PostMapping("/requests")
-    public ResponseEntity<TimeRequest> createRequest(@RequestParam Long userId,
+    public ResponseEntity<TimeRequest> createRequest(@RequestParam long userId,
                                                      @RequestParam int minutes) {
         TimeRequest req = timeService.createRequest(userId, minutes);
         return ResponseEntity.ok(req);
