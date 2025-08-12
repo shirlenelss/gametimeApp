@@ -14,7 +14,6 @@ services:
         - custom-net
 volumes:
   pgdata:
-
 networks:
   custom-net:
     name: game-time-net

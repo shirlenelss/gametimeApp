@@ -55,15 +55,14 @@ public class TimeController {
 
     @GetMapping("/history")
     public List<TimeRequest> getHistory(
-            @RequestParam("range") Range range,
+            @RequestParam(value = "range", defaultValue = "DAY") Range range,
             @RequestParam(value = "status", required = false) RequestStatus status
     ) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime from = switch (range) {
-            case DAY -> now.toLocalDate().atStartOfDay();
             case WEEK -> now.minusWeeks(1).toLocalDate().atStartOfDay();
             case MONTH -> now.minusMonths(1).toLocalDate().atStartOfDay();
-            default -> throw new IllegalArgumentException("Invalid range: " + range);
+            case DAY -> now.toLocalDate().atStartOfDay();
         };
         RequestStatus filterStatus = status != null ? status : RequestStatus.APPROVED;
         return timeService.findByCreatedAtAfterAndStatus(from, filterStatus);

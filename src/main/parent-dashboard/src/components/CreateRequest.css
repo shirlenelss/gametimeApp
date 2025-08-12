@@ -1,0 +1,78 @@
+.create-request-container {
+    padding: 28px 24px 24px 24px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background: #fafbfc;
+    max-width: 370px;
+    margin: 32px auto;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
+}
+
+.create-request-controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.create-request-controls button {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+    margin: 0 12px;
+}
+
+.circle-btn {
+    border-radius: 50%;
+    border: 1px solid #1976d2;
+    background: #fff;
+    color: #1976d2;
+    font-weight: bold;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+}
+.circle-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.circle-btn:hover:not(:disabled) {
+    background: #1976d2;
+    color: #fff;
+}
+
+.create-request-note {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #bdbdbd;
+    font-size: 15px;
+    background: #fff;
+}
+
+.create-request-actions button {
+    margin-right: 10px;
+    min-width: 80px;
+    padding: 8px 0;
+    border-radius: 6px;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.primary-btn {
+    background: #1976d2;
+    color: #fff;
+    font-weight: bold;
+}
+.primary-btn:hover {
+    background: #1565c0;
+}
+
+.secondary-btn {
+    background: #e0e0e0;
+    color: #333;
+}
+.secondary-btn:hover {
+    background: #bdbdbd;
+}
