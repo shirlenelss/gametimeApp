@@ -94,4 +94,11 @@ public class TimeService {
     public TimeBalance getBalance(Long userId) {
         return balanceRepo.findById(userId).orElse(new TimeBalance());
     }
+
+    public List<com.example.react_gametime.application.dto.TimeRequest> findByCreatedAtAfterAndStatus(LocalDateTime from, RequestStatus status) {
+        return requestRepo.findByCreatedAtAfterAndStatus(from, status)
+                .stream()
+                .map(TimeRequestMapper::toDto)
+                .toList();
+    }
 }
