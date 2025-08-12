@@ -3,6 +3,7 @@ import React, { useState} from "react";
 import { handleRequestAction } from "../api/timeRequests";
 import { usePendingRequests } from "../hooks/usePendingRequests";
 import { useHistoryRequests } from "../hooks/useHistoryRequests";
+import PendingRequests from "./PendingRequests";
 
 const Dashboard = () => {
   const [note, setNote] = useState("");
@@ -15,19 +16,14 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2>Pending Time Requests</h2> <button onClick={reloadPending}>Reload</button>
-      <ul>
-        {pendingRequests.map((req) => (
-          <li key={req.id}>
-            {req.childName} requested {req.requestedTime} mins
-            <button onClick={() => handleRequestAction(req.id, "approve")}>
-              Approve
-            </button>
-            <button onClick={() => handleRequestAction(req.id, "deny")}>Deny</button>
-            <button onClick={() => setSelectedRequest(req)}>Custom</button>
-          </li>
-        ))}
-      </ul>
+        <div>
+            <PendingRequests
+                reloadPending={reloadPending}
+                pendingRequests={pendingRequests}
+                onApprove={handleRequestAction}
+                onReject={handleRequestAction}
+            />
+        </div>
       {selectedRequest && (
         <div>
           <h3>Custom Response for {selectedRequest.childName}</h3>
