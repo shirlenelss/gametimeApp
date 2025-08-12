@@ -4,6 +4,7 @@ import { handleRequestAction } from "../api/timeRequests";
 import { usePendingRequests } from "../hooks/usePendingRequests";
 import { useHistoryRequests } from "../hooks/useHistoryRequests";
 import PendingRequests from "./PendingRequests";
+import RequestHistory from "./RequestHistory";
 
 const Dashboard = () => {
   const [note, setNote] = useState("");
@@ -45,15 +46,12 @@ const Dashboard = () => {
           <button onClick={() => setSelectedRequest(null)}>Cancel</button>
         </div>
       )}
-      <h2>Request History</h2><button onClick={reloadHistory}>Reload</button>
-      <ul>
-        {history.map((req) => (
-          <li key={req.id}>
-            {req.childName}: {req.status} ({req.requestedTime} mins)
-            {req.note && <> - Note: {req.note}</>}
-          </li>
-        ))}
-      </ul>
+        <div>
+            <RequestHistory
+                reloadHistory={reloadHistory}
+                history={history}
+            />
+        </div>
     </div>
   );
 };
