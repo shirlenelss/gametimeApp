@@ -20,13 +20,16 @@ const Dashboard = () => {
 
   const parent = { userId: 2, name: "mama" };
   const child = { userId: 3, name: "boy" };
-  const currentUserID = isParent ? parent.userId : child.userId;
 
   // Wrap handleRequestAction to reload pending after action
   const handleAndReloadRequestAction = async (id, action) => {
     await handleRequestAction(id, action)
     await reloadPending();
   };
+
+  const getCurrentUserID = () => {
+      return isParent ? parent.userId : child.userId
+  }
 
   return (
     <div>
@@ -37,10 +40,10 @@ const Dashboard = () => {
             </button>
         </div>
 
-        {isCreateExpanded && (
+        {isCreateExpanded && !isParent && (
             <div className="content">
                 <CreateRequest
-                    userId={currentUserID}
+                    userId={getCurrentUserID}
                     afterSave={() => {
                         setSelectedRequest(null);
                         setIsCreateExpanded(false);
@@ -83,14 +86,14 @@ const Dashboard = () => {
           <button onClick={() => setSelectedRequest(null)}>Cancel</button>
         </div>
       )}
-        {isParent && (
-        <div>
-            <RequestHistory
-                reloadHistory={reloadHistory}
-                history={history}
-            />
-        </div>
-        )}
+
+    <div>
+        <RequestHistory
+            reloadHistory={reloadHistory}
+            history={history}
+        />
+    </div>
+
     </div>
   );
 };
