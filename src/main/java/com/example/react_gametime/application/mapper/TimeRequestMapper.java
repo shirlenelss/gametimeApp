@@ -9,6 +9,7 @@ public class TimeRequestMapper {
                 entity.getId(),
             entity.getRequestedMinutes(),
             entity.getUser().getId(),
+            entity.getUser().getUsername(),
             entity.getStatus(),
             entity.getCreatedAt(),
             entity.getApprovedAt()

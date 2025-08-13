@@ -20,9 +20,9 @@ const RequestHistory = ({ history, reloadHistory }) => (
                 {history.map((req) => (
                     <li key={req.id}>
                         <span>
-                            <b>{req.childName}</b>:
+                            <b>{req.username}</b>:
                             <span style={statusColor(req.status)}> {req.status}</span>
-                            <span> ({req.requestedTime} mins)</span>
+                            <span> ({req.requestedMinutes} mins)</span>
                             {req.note && <span style={{ color: '#757575' }}> - Note: {req.note}</span>}
                         </span>
                     </li>
