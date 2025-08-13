@@ -7,6 +7,7 @@ import com.example.react_gametime.model.RequestStatus;
 import com.example.react_gametime.infrastructure.persistence.TimeBalanceRepository;
 import com.example.react_gametime.infrastructure.persistence.TimeRequestRepository;
 import com.example.react_gametime.infrastructure.persistence.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,7 +74,8 @@ public class TimeService {
     }
 
     private TimeRequest approveRequestStatusToDb(Long requestId) {
-        TimeRequest req = requestRepo.findById(requestId).orElseThrow();
+        TimeRequest req = requestRepo.findById(requestId)
+                .orElseThrow(()->new EntityNotFoundException("TimeRequest not found" + requestId));
         req.setStatus(RequestStatus.APPROVED);
         req.setApprovedAt(LocalDateTime.now());
         requestRepo.save(req);

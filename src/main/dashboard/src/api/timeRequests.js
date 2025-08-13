@@ -2,7 +2,8 @@ import axios from "axios";
 
 export async function fetchPendingRequests() {
   const res = await axios.get("/api/requests/pending");
-  return res.data;
+  // Sort by createdAt descending
+  return res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 }
 
 export async function fetchHistoryRequests(range) {

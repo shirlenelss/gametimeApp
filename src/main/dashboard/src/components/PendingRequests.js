@@ -30,8 +30,8 @@ const PendingRequests = ({ reloadPending, pendingRequests, onApprove, onReject }
               <span className="pending-date">{formatDateTime(request.createdAt)}</span> for <b>{request.requestedMinutes} minutes</b> from <b>{request.childName}</b>
             </span>
             <span>
-              <button className="pending-approve-btn" onClick={() => onApprove(request.id)}>Approve</button>
-              <button className="pending-reject-btn" onClick={() => onReject(request.id)}>Reject</button>
+              <button className="pending-approve-btn" onClick={() => onApprove(request.id, "approve")}>Approve</button>
+              <button className="pending-reject-btn" onClick={() => onReject(request.id, "reject")}>Reject</button>
             </span>
           </li>
         ))}

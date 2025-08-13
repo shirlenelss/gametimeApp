@@ -33,7 +33,14 @@ const Dashboard = () => {
 
         {isCreateExpanded && (
             <div className="content">
-                <CreateRequest userId={currentUserID} afterSave={setSelectedRequest} />
+                <CreateRequest
+                    userId={currentUserID}
+                    afterSave={() => {
+                        setSelectedRequest(null);
+                        setIsCreateExpanded(false);
+                        reloadPending();
+                    }}
+                />
             </div>
         )}
 

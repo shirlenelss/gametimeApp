@@ -15,7 +15,7 @@ const CreateRequest = ({ userId, afterSave, onDelete }) => {
         var newRequest = await apiCreateRequest(userId, requestedTime);
         setRequestedTime(MIN_INTERVAL);
         setNote('');
-        afterSave(newRequest);
+        if (afterSave) afterSave(newRequest);
     };
 
     const handleDelete = () => {
