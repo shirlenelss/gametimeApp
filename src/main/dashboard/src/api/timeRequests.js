@@ -12,7 +12,12 @@ export async function fetchHistoryRequests(range) {
 }
 
 export async function handleRequestAction(id, action, note, customTime) {
-  await axios.post(`/api/requests/${id}/${action}`, { note, customTime });
+  try {
+    const res = await axios.post(`/api/requests/${id}/${action}`, { note, customTime });
+    return !!res.data
+  } catch (error) {
+    throw error;
+  }
 }
 
 export async function createRequest(userId, minutes) {

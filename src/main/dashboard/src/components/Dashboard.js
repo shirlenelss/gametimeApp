@@ -22,6 +22,12 @@ const Dashboard = () => {
   const child = { userId: 3, name: "boy" };
   const currentUserID = isParent ? parent.userId : child.userId;
 
+  // Wrap handleRequestAction to reload pending after action
+  const handleAndReloadRequestAction = async (id, action) => {
+    await handleRequestAction(id, action)
+    await reloadPending();
+  };
+
   return (
     <div>
         <label>isParent: <input type="checkbox" name="myCheckbox" onClick={()=>setIsParent(prevState => !prevState)} /></label>
@@ -48,8 +54,8 @@ const Dashboard = () => {
             <PendingRequests
                 reloadPending={reloadPending}
                 pendingRequests={pendingRequests}
-                onApprove={handleRequestAction}
-                onReject={handleRequestAction}
+                onApprove={handleAndReloadRequestAction}
+                onReject={handleAndReloadRequestAction}
             />
         </div>
 
@@ -68,7 +74,10 @@ const Dashboard = () => {
             value={note}
             onChange={(e) => setNote(e.target.value)}
           />
-          <button onClick={() => handleRequestAction(selectedRequest.id, "custom")}>
+          <button onClick={async () => {
+            await handleAndReloadRequestAction(selectedRequest.id, "custom");
+            setSelectedRequest(null);
+          }}>
             Send
           </button>
           <button onClick={() => setSelectedRequest(null)}>Cancel</button>
