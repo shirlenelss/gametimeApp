@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import com.example.react_gametime.infrastructure.persistence.UserEntity;
+
+import javax.swing.*;
+
 @Service
 public class UserService {
 
@@ -22,5 +25,14 @@ public class UserService {
 
     public Optional<UserEntity> findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public Optional<UserEntity> login(String username, String password) {
+        Optional<UserEntity> user = userRepository.findByUsername(username);
+        System.out.println("UserService.login: " + user);
+        if (user.isPresent() && user.get().getPasswordHash().equals(password)) {
+            return user;
+        }
+        return Optional.empty();
     }
 }

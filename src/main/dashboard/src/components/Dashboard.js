@@ -1,5 +1,6 @@
-import React, { useState} from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import "../styles/Dashboard.css";
 
 import { handleRequestAction } from "../api/timeRequests";
 import { usePendingRequests } from "../hooks/usePendingRequests";
@@ -10,10 +11,13 @@ import CreateRequest from "./CreateRequest";
 
 const Dashboard = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
-  const role = params.get("role");
+  // Read role and userId from params if present, otherwise fallback to sessionStorage
+  const role = params.get("role") || sessionStorage.getItem("userRole");
+  const loginUserId = params.get("userId") || sessionStorage.getItem("userId");
 
-  const [isParent, setIsParent] = useState(role === "parent");
+  const [isParent, setIsParent] = useState(role === "PARENT");
   const [note, setNote] = useState("not used (note)");
   const [customTime, setCustomTime] = useState("");
   const [selectedRequest, setSelectedRequest] = useState(null);
@@ -23,36 +27,44 @@ const Dashboard = () => {
   const { history, reload: reloadHistory } = useHistoryRequests(range);
   const [isCreateExpanded, setIsCreateExpanded] = useState(true);
 
-  const parent = { userId: 2, name: "mama" };
-  const child = { userId: 3, name: "boy" };
-
   // Wrap handleRequestAction to reload pending after action
   const handleAndReloadRequestAction = async (id, action) => {
     await handleRequestAction(id, action)
     await reloadPending();
   };
 
-  const getCurrentUserID = () => {
-      return isParent ? parent.userId : child.userId
-  }
+  // Logout handler
+  const handleLogout = () => {
+    sessionStorage.clear();
+    navigate("/login");
+  };
 
   return (
     <div>
-        <label>isParent: <input type="checkbox" name="myCheckbox" onClick={()=>setIsParent(prevState => !prevState)} /></label>
+      {/* Top panel with logout button */}
+      <div className="dashboard-top-panel">
+        <span className="dashboard-title">Dashboard</span>
+        <button className="dashboard-logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+
+      {!isParent && (
         <div>
-            <button onClick={() => setIsCreateExpanded(prev => !prev)}>
+            <button className={"dashboard-create-btn"}   onClick={() => setIsCreateExpanded(prev => !prev)}>
                 Create
             </button>
-        </div>
+        </div>)}
 
         {isCreateExpanded && !isParent && (
             <div className="content">
                 <CreateRequest
-                    userId={getCurrentUserID()}
+                    userId={loginUserId}
                     afterSave={() => {
-                        reloadPending();
-                        setSelectedRequest(null);
-                        setIsCreateExpanded(false);
+                        reloadPending().then(r => {
+                            setSelectedRequest(null);
+                            setIsCreateExpanded(false);
+                        });
                     }}
                     onCancel={() => {
                         setSelectedRequest(null);

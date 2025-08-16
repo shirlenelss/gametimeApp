@@ -4,6 +4,7 @@ import com.example.react_gametime.application.dto.User;
 import com.example.react_gametime.application.mapper.UserMapper;
 import com.example.react_gametime.application.service.UserService;
 import com.example.react_gametime.infrastructure.persistence.UserEntity;
+import com.example.react_gametime.model.UserPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,4 +38,14 @@ public class UserController {
         userService.removeUser(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody UserPassword userPassword) {
+        Optional<UserEntity> user = userService.login(userPassword.getUsername(), userPassword.getPassword());
+        return user
+                .map(UserMapper::toDto)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 }

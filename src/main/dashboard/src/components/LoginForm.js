@@ -13,10 +13,20 @@ const LoginForm = () => {
     e.preventDefault();
     setError("");
     try {
-      const res = await axios.post("/api/login", { username, password });
-      const { role } = res.data;
-      // You may want to store token/session here
-      navigate(`/dashboard?role=${role}`);
+      // Send the user body as expected by UserController
+      const userBody = { username, password };
+      const res = await axios.post("/api/login", userBody);
+      const { role, token, id } = res.data;
+      if (token) {
+        sessionStorage.setItem("sessionToken", token);
+      }
+      if (role) {
+        sessionStorage.setItem("userRole", role);
+      }
+      if (id) {
+        sessionStorage.setItem("userId", id);
+      }
+      navigate("/dashboard");
     } catch (err) {
       setError("Invalid credentials");
     }

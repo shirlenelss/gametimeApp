@@ -1,5 +1,5 @@
 {
-  "name": "parent-dashboard",
+  "name": "dashboard",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -19,7 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +44,7 @@
   "devDependencies": {
     "cypress": "^14.5.4",
     "eslint": "^8.57.1",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "webpack": "^5.101.2"
   }
 }
