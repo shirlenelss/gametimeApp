@@ -1,5 +1,5 @@
 import React from 'react';
-import './RequestHistory.css';
+import '../styles/RequestHistory.css';
 
 const statusColor = (status) => {
     if (status === 'APPROVED') return { color: '#43a047', fontWeight: 'bold' };

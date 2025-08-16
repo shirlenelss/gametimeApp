@@ -4,7 +4,7 @@ import './CreateRequest.css';
 
 const MIN_INTERVAL = 15;
 
-const CreateRequest = ({ userId, afterSave, onDelete }) => {
+const CreateRequest = ({ userId, afterSave, onCancel }) => {
     const [requestedTime, setRequestedTime] = useState(MIN_INTERVAL);
     const [note, setNote] = useState('');
 
@@ -21,7 +21,7 @@ const CreateRequest = ({ userId, afterSave, onDelete }) => {
     const handleDelete = () => {
         setRequestedTime(MIN_INTERVAL);
         setNote('');
-        if (onDelete) onDelete();
+        if (onCancel) onCancel();
     };
 
     return (
@@ -53,7 +53,7 @@ const CreateRequest = ({ userId, afterSave, onDelete }) => {
             </div>
             <div className="create-request-actions" style={{ display: 'flex', justifyContent: 'center' }}>
                 <button className="primary-btn" onClick={handleSave}>Save</button>
-                <button className="secondary-btn" onClick={handleDelete} style={{ marginLeft: '10px' }}>Delete</button>
+                <button className="secondary-btn" onClick={handleDelete} style={{ marginLeft: '10px' }}>Cancel</button>
             </div>
         </div>
     );

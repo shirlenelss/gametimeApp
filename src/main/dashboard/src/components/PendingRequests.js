@@ -1,5 +1,5 @@
 import React from 'react';
-import './PendingRequests.css';
+import '../styles/PendingRequests.css';
 
 // Helper to format date to short calendar date time
 function formatDateTime(dateString) {
