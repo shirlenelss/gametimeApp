@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createRequest as apiCreateRequest } from '../api/timeRequests';
-import './CreateRequest.css';
+import '../styles/CreateRequest.css';
 
 const MIN_INTERVAL = 15;
 

@@ -17,7 +17,7 @@ const Dashboard = () => {
   const role = params.get("role") || sessionStorage.getItem("userRole");
   const loginUserId = params.get("userId") || sessionStorage.getItem("userId");
 
-  const [isParent, setIsParent] = useState(role === "PARENT");
+  const [isParent] = useState(role === "PARENT");
   const [note, setNote] = useState("not used (note)");
   const [customTime, setCustomTime] = useState("");
   const [selectedRequest, setSelectedRequest] = useState(null);
