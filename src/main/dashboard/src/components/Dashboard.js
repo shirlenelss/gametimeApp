@@ -1,4 +1,5 @@
 import React, { useState} from "react";
+import { useLocation } from "react-router-dom";
 
 import { handleRequestAction } from "../api/timeRequests";
 import { usePendingRequests } from "../hooks/usePendingRequests";
@@ -8,7 +9,11 @@ import RequestHistory from "./RequestHistory";
 import CreateRequest from "./CreateRequest";
 
 const Dashboard = () => {
-  const [isParent, setIsParent] = useState(true);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const role = params.get("role");
+
+  const [isParent, setIsParent] = useState(role === "parent");
   const [note, setNote] = useState("not used (note)");
   const [customTime, setCustomTime] = useState("");
   const [selectedRequest, setSelectedRequest] = useState(null);
@@ -16,7 +21,7 @@ const Dashboard = () => {
 
   const { pendingRequests, reload: reloadPending } = usePendingRequests();
   const { history, reload: reloadHistory } = useHistoryRequests(range);
-  const [isCreateExpanded, setIsCreateExpanded] = useState(false);
+  const [isCreateExpanded, setIsCreateExpanded] = useState(true);
 
   const parent = { userId: 2, name: "mama" };
   const child = { userId: 3, name: "boy" };
@@ -43,12 +48,17 @@ const Dashboard = () => {
         {isCreateExpanded && !isParent && (
             <div className="content">
                 <CreateRequest
-                    userId={getCurrentUserID}
+                    userId={getCurrentUserID()}
                     afterSave={() => {
+                        reloadPending();
                         setSelectedRequest(null);
                         setIsCreateExpanded(false);
-                        reloadPending();
                     }}
+                    onCancel={() => {
+                        setSelectedRequest(null);
+                        setIsCreateExpanded(false);
+                    }
+                }
                 />
             </div>
         )}
