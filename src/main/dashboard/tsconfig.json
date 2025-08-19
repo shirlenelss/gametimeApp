@@ -1,0 +1,6 @@
+// future proof js files in case we want to use typescript features later
+{
+  "compilerOptions": {
+    "allowJs": true
+  }
+}

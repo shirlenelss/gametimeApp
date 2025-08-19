@@ -20,7 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run --browser chrome"
   },
   "eslintConfig": {
     "extends": [
@@ -42,9 +42,14 @@
   },
   "proxy": "http://localhost:8080",
   "devDependencies": {
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-react": "^7.27.1",
+    "@testing-library/cypress": "^10.0.3",
+    "css-loader": "^7.1.2",
     "cypress": "^14.5.4",
     "eslint": "^8.57.1",
     "prettier": "^3.6.2",
+    "style-loader": "^4.0.0",
     "webpack": "^5.101.2"
   }
 }
