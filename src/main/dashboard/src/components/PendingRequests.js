@@ -14,30 +14,38 @@ function formatDateTime(dateString) {
   });
 }
 
-const PendingRequests = ({ reloadPending, pendingRequests, onApprove, onReject }) => (
-  <div className="pending-requests-container">
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-      <h2 style={{ color: '#1976d2' }}>Pending Requests</h2>
-      <button className="pending-reload-btn" onClick={reloadPending}>Reload</button>
+const role = sessionStorage && sessionStorage.getItem("userRole");
+
+const PendingRequests = ({ reloadPending, pendingRequests, onApprove, onReject}) => {
+
+  return (
+    <div className="pending-requests-container">
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <h2 style={{ color: '#1976d2' }}>Pending Requests</h2>
+        <button className="pending-reload-btn" onClick={reloadPending}>Reload</button>
+      </div>
+      {pendingRequests.length === 0 ? (
+        <p className="pending-empty">No pending requests.</p>
+      ) : (
+        <ul className="pending-requests-list">
+          {pendingRequests.map((request) => (
+            <li key={request.id}>
+              <span>
+                <span className="pending-date">{formatDateTime(request.createdAt)}</span> for <b>{request.requestedMinutes} minutes</b> from <b>{request.childName}</b>
+              </span>
+
+              {role === "PARENT" && (
+              <span>
+                <button className="pending-approve-btn" onClick={() => onApprove(request.id, "approve")}>Approve</button>
+                <button className="pending-reject-btn" onClick={() => onReject(request.id, "reject")}>Reject</button>
+              </span>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
-    {pendingRequests.length === 0 ? (
-      <p className="pending-empty">No pending requests.</p>
-    ) : (
-      <ul className="pending-requests-list">
-        {pendingRequests.map((request) => (
-          <li key={request.id}>
-            <span>
-              <span className="pending-date">{formatDateTime(request.createdAt)}</span> for <b>{request.requestedMinutes} minutes</b> from <b>{request.childName}</b>
-            </span>
-            <span>
-              <button className="pending-approve-btn" onClick={() => onApprove(request.id, "approve")}>Approve</button>
-              <button className="pending-reject-btn" onClick={() => onReject(request.id, "reject")}>Reject</button>
-            </span>
-          </li>
-        ))}
-      </ul>
-    )}
-  </div>
-);
+  );
+};
 
 export default PendingRequests;

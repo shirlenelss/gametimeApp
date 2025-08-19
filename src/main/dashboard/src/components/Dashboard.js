@@ -25,11 +25,11 @@ const Dashboard = () => {
 
   const { pendingRequests, reload: reloadPending } = usePendingRequests();
   const { history, reload: reloadHistory } = useHistoryRequests(range);
-  const [isCreateExpanded, setIsCreateExpanded] = useState(true);
+  const [isCreateExpanded, setIsCreateExpanded] = useState(false);
 
   // Wrap handleRequestAction to reload pending after action
   const handleAndReloadRequestAction = async (id, action) => {
-    await handleRequestAction(id, action)
+    await handleRequestAction(id, action, loginUserId)
     await reloadPending();
   };
 
@@ -41,50 +41,55 @@ const Dashboard = () => {
 
   return (
     <div>
-      {/* Top panel with logout button */}
+      {/* Top panel with logout and create button */}
       <div className="dashboard-top-panel">
         <span className="dashboard-title">Dashboard</span>
-        <button className="dashboard-logout-btn" onClick={handleLogout}>
-          Logout
-        </button>
+        <div>
+          {!isParent && !isCreateExpanded && (
+            <button
+              className="dashboard-create-btn"
+              onClick={() => setIsCreateExpanded(true)}
+            >
+              Create
+            </button>
+          )}
+          <button className="dashboard-logout-btn" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
       </div>
 
-      {!isParent && (
-        <div>
-            <button className={"dashboard-create-btn"}   onClick={() => setIsCreateExpanded(prev => !prev)}>
-                Create
-            </button>
-        </div>)}
-
-        {isCreateExpanded && !isParent && (
-            <div className="content">
-                <CreateRequest
-                    userId={loginUserId}
-                    afterSave={() => {
-                        reloadPending().then(r => {
-                            setSelectedRequest(null);
-                            setIsCreateExpanded(false);
-                        });
-                    }}
-                    onCancel={() => {
-                        setSelectedRequest(null);
-                        setIsCreateExpanded(false);
-                    }
-                }
-                />
-            </div>
-        )}
-
-        <div>
-            <PendingRequests
-                reloadPending={reloadPending}
-                pendingRequests={pendingRequests}
-                onApprove={handleAndReloadRequestAction}
-                onReject={handleAndReloadRequestAction}
-            />
+      {isCreateExpanded && !isParent && (
+        <div className="create-request-container">
+          <CreateRequest
+            userId={loginUserId}
+            afterSave={() => {
+              reloadPending().then(r => {
+                setSelectedRequest(null);
+                setIsCreateExpanded(false);
+                reloadHistory();
+              });
+            }}
+            onCancel={() => {
+              setSelectedRequest(null);
+              setIsCreateExpanded(false);
+            }}
+          />
         </div>
+      )}
 
-       {selectedRequest && (
+      <div>
+        <PendingRequests
+          reloadPending={reloadPending}
+          pendingRequests={pendingRequests}
+          onApprove={handleAndReloadRequestAction}
+          onReject={handleAndReloadRequestAction}
+          role={role}
+        />
+      </div>
+
+
+      {selectedRequest && (// expand custom response section later
         <div>
           <h3>Custom Response for {selectedRequest.childName}</h3>
           <input
@@ -109,14 +114,13 @@ const Dashboard = () => {
         </div>
       )}
 
-    <div>
+      <div>
         <RequestHistory
-            reloadHistory={reloadHistory}
-            history={history}
+          reloadHistory={reloadHistory}
+          history={history}
         />
+      </div>
     </div>
-
-  </div>
   );
 };
 

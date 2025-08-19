@@ -1,11 +1,10 @@
 .create-request-container {
-    padding: 28px 24px 24px 24px;
-    border: 1px solid #e0e0e0;
+    margin: 24px auto;
+    padding: 24px;
+    background: #f7faff;
     border-radius: 12px;
-    background: #fafbfc;
-    max-width: 500px;
-    margin: 32px auto;
-    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
+    box-shadow: 0 2px 12px rgba(25, 118, 210, 0.08);
+    max-width: 400px;
 }
 
 .create-request-controls {

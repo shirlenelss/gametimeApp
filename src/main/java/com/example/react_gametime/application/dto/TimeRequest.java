@@ -19,7 +19,7 @@ public class TimeRequest {
     private long userId;
 
     @org.hibernate.annotations.Formula("(select u.username from users u where u.id = user_id)")
-    private String username;
+    private String childName;
 
     @Enumerated(EnumType.STRING)
     private RequestStatus status; // PENDING, APPROVED, REJECTED
